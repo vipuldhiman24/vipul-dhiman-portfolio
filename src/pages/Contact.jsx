@@ -9,30 +9,39 @@ import {
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
+
 
 export default function Contact() {
   const theme = useTheme();
 
-  const contacts = [
-    {
-      title: "LinkedIn",
-      subtitle: "Connect professionally →",
-      icon: <LinkedInIcon />,
-      link: "https://www.linkedin.com/in/vipul-dhiman/",
-    },
-    {
-      title: "GitHub",
-      subtitle: "View my code →",
-      icon: <GitHubIcon />,
-      link: "https://github.com/vipuldhiman24",
-    },
-    {
-      title: "Phone",
-      subtitle: "7042857001",
-      icon: <PhoneIcon />,
-      link: "tel:7042857001",
-    },
-  ];
+ const contacts = [
+  {
+    title: "LinkedIn",
+    subtitle: "Connect professionally →",
+    icon: <LinkedInIcon />,
+    link: "www.linkedin.com/in/vipul-d24",
+  },
+  {
+    title: "GitHub",
+    subtitle: "View my code →",
+    icon: <GitHubIcon />,
+    link: "https://github.com/vipuldhiman24",
+  },
+  {
+    title: "Email",
+    subtitle: "vipuldhiman24@gmail.com",
+    icon: <EmailIcon />,
+    link: "mailto:vipuldhiman24@gmail.com",
+  },
+  {
+    title: "Phone",
+    subtitle: "7042857001",
+    icon: <PhoneIcon />,
+    link: "tel:7042857001",
+  },
+];
+
 
   return (
     <Box sx={{ py: 0 }}>
