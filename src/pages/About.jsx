@@ -1,5 +1,5 @@
 // src/pages/About.jsx
-import "./about.css";
+import "./About.css";
 
 export default function About() {
   return (
