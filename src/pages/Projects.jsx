@@ -31,8 +31,8 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
       "Vercel",
       "GoDaddy DNS"
     ],
-    github: "https://github.com/vipuldhiman24",
-    live: "https://github.com/vipuldhiman24/travel-with-friends.git"
+    github: "https://github.com/vipuldhiman24/travel-with-friends.git",
+    live: "https://www.theflywithfriends.com/index.html"
   },
 {
       title: "Auth System ",
