@@ -12,11 +12,29 @@ import {
 import GitHubIcon from "@mui/icons-material/GitHub";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
-export default function Projects() {
-  const theme = useTheme();
+  export default function Projects() {
+    const theme = useTheme();
 
-  const projects = [
-    {
+    const projects = [
+      {
+    title: "Fly With Friends – Travel Booking Website",
+    desc:
+      "A fully responsive travel booking website built for a real client. Features dynamic tour packages, detailed itinerary pages, WhatsApp-based enquiry system, call-to-action flows, and SEO-friendly static deployment. Designed for performance, scalability, and real-world business use.",
+    image: "/src/assets/travelwithfriends.png",
+    tags: [
+      "HTML",
+      "Tailwind CSS",
+      "JavaScript",
+      "Dynamic Routing",
+      "WhatsApp Integration",
+      "Client Project",
+      "Vercel",
+      "GoDaddy DNS"
+    ],
+    github: "https://github.com/vipuldhiman24",
+    live: "https://github.com/vipuldhiman24/travel-with-friends.git"
+  },
+{
       title: "Auth System ",
       desc:
         "JWT-based authentication and authorization system built using Spring Boot microservices. Includes user management, token generation, validation, and secure REST APIs with SQL-backed persistence.",
@@ -62,6 +80,7 @@ export default function Projects() {
       github: "https://github.com/vipuldhiman24/courses-platform-microservices.git",
       live: "https://github.com/vipuldhiman24/courses-platform-microservices.git",
     },
+    
   ];
 
   return (
