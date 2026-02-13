@@ -46,7 +46,7 @@ export default function Home() {
             color: "primary.main",
           }}
         >
-          ● Immediate Joiner
+          ● 
         </Typography>
 
         <Typography variant="h2" fontWeight={700} lineHeight={1.1}>
@@ -71,9 +71,7 @@ export default function Home() {
             fontSize: "1rem",
           }}
         >
-          Full Stack Software Engineer with 2 years of hands-on experience
-          in Java, Spring Boot microservices, RESTful APIs, SQL databases,
-          and React.
+          Technicahl Support Analytics Consultant
         </Typography>
 
         {/* BUTTONS */}
@@ -85,21 +83,29 @@ export default function Home() {
             flexDirection: { xs: "column", sm: "row" },
           }}
         >
-          {/* ✅ WORKING CONTACT BUTTON */}
+          {/* ✅ WORKING CONTACT BUTTON * Also an mbox for Adobe Target */}
           <Button
-            component={NavLink}
-            to="/contact"
-            variant="contained"
-            sx={{
-              borderRadius: "999px",
-              px: 4,
-              py: 1.2,
-              textTransform: "none",
-              width: { xs: "100%", sm: "auto" },
-            }}
-          >
-            Contact Me →
-          </Button>
+  component={NavLink}
+  to="/contact"
+  variant="contained"
+  onClick={() => {
+    if (window.adobe?.target) {
+      window.adobe.target.trackEvent({
+        mbox: "contactButtonMbox"
+      });
+    }
+  }}
+  sx={{
+    borderRadius: "999px",
+    px: 4,
+    py: 1.2,
+    textTransform: "none",
+    width: { xs: "100%", sm: "auto" },
+  }}
+>
+  Contact Me →
+</Button>
+
 
           <Button
             variant="outlined"
