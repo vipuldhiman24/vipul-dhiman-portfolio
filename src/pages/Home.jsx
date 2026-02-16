@@ -84,27 +84,23 @@ export default function Home() {
           }}
         >
           {/* ✅ WORKING CONTACT BUTTON * Also an mbox for Adobe Target */}
-          <Button
-  component={NavLink}
-  to="/contact"
-  variant="contained"
-  onClick={() => {
-    if (window.adobe?.target) {
-      window.adobe.target.trackEvent({
-        mbox: "contactButtonMbox"
-      });
-    }
-  }}
-  sx={{
-    borderRadius: "999px",
-    px: 4,
-    py: 1.2,
-    textTransform: "none",
-    width: { xs: "100%", sm: "auto" },
-  }}
->
-  Contact Me →
-</Button>
+         <div id="contact-button-container">
+  <Button
+    component={NavLink}
+    to="/contact"
+    variant="contained"
+    sx={{
+      borderRadius: "999px",
+      px: 4,
+      py: 1.2,
+      textTransform: "none",
+      width: { xs: "100%", sm: "auto" },
+    }}
+  >
+    Contact Me →
+  </Button>
+</div>
+
 
 
           <Button
