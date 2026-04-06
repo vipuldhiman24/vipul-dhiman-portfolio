@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Skills from "./pages/Skills";
+import Sounds from "./pages/Sounds";
+import SoundDetail from "./pages/SoundDetail";
 
 function App() {
   return (
@@ -19,8 +21,8 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/skills" element={<Skills />} />
-             <Route path="/recommendations" element={<recommendations />} />
-
+            <Route path="/sounds" element={<Sounds />} />
+            <Route path="/sounds/:id" element={<SoundDetail />} />
           </Routes>
         </div>
       </BrowserRouter>
