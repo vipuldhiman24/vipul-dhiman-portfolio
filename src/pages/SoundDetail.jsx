@@ -100,7 +100,7 @@ export default function SoundDetail() {
       if (!isCancelled) {
         fetchRecs();
       }
-    }, 2000);
+    }, 7000);
 
     return () => {
       isCancelled = true;
