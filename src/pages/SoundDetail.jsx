@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import soundsData from "../assets/Sounds.json";
 
@@ -21,6 +21,92 @@ export default function SoundDetail() {
 
   // Find current sound from your local JSON feed
   const sound = soundsData.find(s => s["entity.id"] === id);
+
+  // Recommendations state
+  const [recs, setRecs] = useState([]);
+
+  // Fetch recommendations from Adobe Target when `id` changes
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function fetchRecs() {
+      if (!id) return;
+
+      if (
+        !window.adobe ||
+        !window.adobe.target ||
+        typeof window.adobe.target.getOffers !== "function"
+      ) {
+        console.warn("[Recs] adobe.target.getOffers not ready (after delay)");
+        return;
+      }
+
+      try {
+        const response = await window.adobe.target.getOffers({
+          request: {
+            execute: {
+              mboxes: [
+                {
+                  // MUST match the Location name in your form-based Rec activity
+                  name: "sounds-recs",
+                  index: 0,
+                  parameters: {
+                    "entity.id": id // dynamic ID from the URL, e.g. "S001"
+                  }
+                }
+              ]
+            }
+          }
+        });
+
+        const mboxes = response.execute && response.execute.mboxes;
+        if (!mboxes || !mboxes.length) {
+          console.log("[Recs] No mboxes in response");
+          return;
+        }
+
+        const options = mboxes[0].options;
+        if (!options || !options.length) {
+          console.log("[Recs] No options in first mbox");
+          return;
+        }
+
+        const raw = (options[0].content || "").trim();
+        if (!raw) {
+          console.log("[Recs] Empty offer content");
+          return;
+        }
+
+        let data;
+        try {
+          data = JSON.parse(raw);
+        } catch (e) {
+          console.error("[Recs] JSON parse failed", e, raw);
+          return;
+        }
+
+        const items = data.recommendations || [];
+        if (!isCancelled) {
+          setRecs(items);
+          console.log("[Recs] Loaded", items.length, "items for", id);
+        }
+      } catch (e) {
+        console.error("[Recs] getOffers error", e);
+      }
+    }
+
+    // Delay the first recs fetch by 2 seconds
+    const timeoutId = setTimeout(() => {
+      if (!isCancelled) {
+        fetchRecs();
+      }
+    }, 7000);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(timeoutId);
+    };
+  }, [id]);
 
   // If sound not found, render nothing
   if (!sound) return null;
@@ -149,8 +235,8 @@ export default function SoundDetail() {
           </Box>
         </Paper>
 
-        {/* recommendations – VEC will own this area */}
-        <Box mt={5} id="similar-sounds-section">
+        {/* recommendations */}
+        <Box mt={5}>
           <Typography variant="h6" fontWeight="600">
             similar sounds
           </Typography>
@@ -162,8 +248,58 @@ export default function SoundDetail() {
             powered by adobe target
           </Typography>
 
-          {/* Target VEC 3×1 Recommendations can replace or insert content here */}
-          <Box id="vec-recommendations-placeholder" />
+          {recs.length === 0 && (
+            <Typography fontSize={13} sx={{ opacity: 0.6 }}>
+              loading recommendations...
+            </Typography>
+          )}
+
+          <Stack
+            direction="row"
+            spacing={2}
+            flexWrap="wrap"
+          >
+            {recs.map(item => (
+              <Paper
+                key={item.id}
+                elevation={1}
+                sx={{
+                  width: 180,
+                  borderRadius: 3,
+                  overflow: "hidden",
+                  cursor: "pointer"
+                }}
+                onClick={() => navigate(`/sounds/${item.id}`)}
+              >
+                <Box
+                  component="img"
+                  src={item.thumbnailUrl}
+                  alt={item.name}
+                  sx={{
+                    width: "100%",
+                    height: 100,
+                    objectFit: "cover"
+                  }}
+                />
+                <Box sx={{ p: 1.5 }}>
+                  <Typography
+                    variant="subtitle2"
+                    fontWeight={600}
+                    noWrap
+                  >
+                    {item.name}
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    sx={{ opacity: 0.7 }}
+                    noWrap
+                  >
+                    {item.message}
+                  </Typography>
+                </Box>
+              </Paper>
+            ))}
+          </Stack>
         </Box>
       </Container>
     </Box>
