@@ -37,7 +37,7 @@ export default function SoundDetail() {
         !window.adobe.target ||
         typeof window.adobe.target.getOffers !== "function"
       ) {
-        console.warn("[Recs] adobe.target.getOffers not ready");
+        console.warn("[Recs] adobe.target.getOffers not ready (after delay)");
         return;
       }
 
@@ -95,10 +95,16 @@ export default function SoundDetail() {
       }
     }
 
-    fetchRecs();
+    // Delay the first recs fetch by 2 seconds
+    const timeoutId = setTimeout(() => {
+      if (!isCancelled) {
+        fetchRecs();
+      }
+    }, 2000);
 
     return () => {
       isCancelled = true;
+      clearTimeout(timeoutId);
     };
   }, [id]);
 
