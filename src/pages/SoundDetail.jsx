@@ -154,13 +154,14 @@ export default function SoundDetail() {
           <Typography variant="h6" fontWeight="600">
             similar sounds
           </Typography>
-
+              <div className="recSoundsPage">
           <Typography
             fontSize={13}
             sx={{ opacity: 0.6, mb: 2 }}
           >
             powered by adobe target
           </Typography>
+          </div>
 
           {/* Target VEC 3×1 Recommendations can replace or insert content here */}
           <Box id="vec-recommendations-placeholder" />
