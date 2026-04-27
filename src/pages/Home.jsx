@@ -23,10 +23,10 @@ export default function Home() {
     }
 
     window.adobe.target.getOffer({
-      mbox: "home-page-mbox",
+      mbox: "contactButtonMbox
       success: function (offer) {
         window.adobe.target.applyOffer({
-          mbox: "home-page-mbox",
+          mbox: "contactButtonMbox
           selector: "#home-page-target",
           offer: offer,
         });
